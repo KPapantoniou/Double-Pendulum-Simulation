@@ -6,7 +6,6 @@ from scipy.spatial.distance import euclidean
 import keras
 from keras import layers
 
-
 m1_values = [1] ##[1.0, 2.0]
 m2_values = [1] ##[1.0, 2.0]
 L1_values = [1] ##[0.5, 1.0]
