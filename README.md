@@ -44,6 +44,10 @@ This project simulates the dynamics of a double pendulum, a well-known example o
 - Plots phase space trajectories.
 - Displays relationships between entropy, energy, and chaos.
 
+#### Plots:
+
+##### Double Pendulum Mo
+
 ## Why It’s Important
 
 - **Demonstrates Chaos Theory**: The double pendulum is a classic example of a chaotic system.
