@@ -59,3 +59,24 @@ Ensure you have Python 3 installed along with the following dependencies:
 
 ```bash
 pip install numpy scipy matplotlib tensorflow keras
+```
+
+## Running the Simulation
+
+To execute the simulation, run:
+
+```bash
+python simulation.py
+```
+## Running the Machine Learning ModelTo train and test the ML model, execute:
+
+```bash
+python chaos_analysis.py
+```
+## Dependencies
+This project requires the following Python libraries:
+
+- **numpy**: Numerical computations
+- **scipy**: Solving differential equations
+- **matplotlib**: Visualization & animation
+- **tensorflow & keras**: Machine learning model
