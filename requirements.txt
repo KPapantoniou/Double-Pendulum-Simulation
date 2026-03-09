@@ -1,0 +1,5 @@
+  numpy
+  scipy
+  matplotlib
+  torch==2.10.0+cu128
+  scikit-learn

@@ -1,82 +1,78 @@
-# Double Pendulum Chaos Analysis
+# Double Pendulum Chaos Lab
 
-## Project Overview
+A research-oriented Python project for:
 
-This project simulates the dynamics of a double pendulum, a well-known example of chaotic motion. By numerically solving the equations of motion, analyzing energy conservation, and visualizing phase space, we gain insights into the system's behavior. Additionally, we compute Lyapunov exponents and approximate entropy to quantify chaos and train a machine learning model to predict chaotic behavior from initial conditions.
+1. Batched double-pendulum simulation.
+2. Finite-time Lyapunov estimation.
+3. Chaos dataset generation over phase space.
+4. ML prediction of chaos intensity.
+5. Scientific visual diagnostics.
 
-## Accomplishments
+## Project Structure
 
-- Implemented a numerical solver for the double pendulum using `scipy.integrate.solve_ivp`.
-- Visualized motion using Matplotlib animations.
-- Analyzed energy conservation to verify the correctness of the simulation.
-- Computed Lyapunov exponents to measure sensitivity to initial conditions.
-- Estimated entropy to evaluate system complexity.
-- Trained a neural network to predict chaotic behavior from initial conditions.
-- Developed analytical plots to visualize relationships between chaos indicators.
+- `chaoslab/simulation/`: dynamics integration, parameters, energy.
+- `chaoslab/numerics/`: Lyapunov estimation with renormalization.
+- `chaoslab/analysis/`: sampling, feature engineering, dataset building, metrics.
+- `chaoslab/models/`: model benchmarking (RF, GB, MLP).
+- `chaoslab/visualization/`: plots for phase maps, histograms, residuals.
+- `run_chaos_study.py`: full pipeline entrypoint.
+- `simulation.py`: lightweight single-trajectory demo using `chaoslab` 
 
-## How It Works
-
-### Numerical Simulation
-
-- The equations of motion are solved using a system of coupled differential equations.
-- The state variables (angles & angular velocities) are evolved over time.
-
-### Energy Analysis
-
-- Computes kinetic & potential energy to verify total energy conservation.
-
-### Chaos Quantification
-
-#### Lyapunov exponent
-- Measures the rate at which trajectories diverge.
-
-#### Approximate entropy
-- Evaluates the complexity of time series data.
-
-### Machine Learning Model
-
-- Trains a neural network using TensorFlow/Keras to predict Lyapunov exponents.
-- Uses initial conditions as input features.
-
-### Visualization
-
-- Animates the double pendulum motion.
-- Plots phase space trajectories.
-- Displays relationships between entropy, energy, and chaos.
-
-## Why It’s Important
-
-- **Demonstrates Chaos Theory**: The double pendulum is a classic example of a chaotic system.
-- **Quantifies Unpredictability**: Computing Lyapunov exponents helps quantify unpredictability in real-world systems like weather forecasting and financial markets.
-- **Machine Learning Application**: The ML model showcases how AI can help predict complex system behavior.
-- **Educational Value**: Serves as a learning resource for nonlinear dynamics, numerical methods, and deep learning.
-
-## Installation & Usage
-
-### Prerequisites
-
-Ensure you have Python 3 installed along with the following dependencies:
+## Installation
 
 ```bash
-pip install numpy scipy matplotlib tensorflow keras
+python -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-## Running the Simulation
+## Quick Start
 
-To execute the simulation, run:
+### 1) Full chaos study
+
+```bash
+python run_chaos_study.py
+```
+
+This generates:
+
+- Lyapunov distribution
+- Chaos phase diagram
+- Phase-space coloring by Lyapunov
+- Prediction vs truth + residual plots for all available models
+
+Artifacts are written to `outputs/`.
+
+### 2) Single simulation demo
 
 ```bash
 python simulation.py
 ```
-## Running the Machine Learning ModelTo train and test the ML model, execute:
 
-```bash
-python chaos_analysis.py
-```
-## Dependencies
-This project requires the following Python libraries:
+This runs one pendulum trajectory and plots:
 
-- **numpy**: Numerical computations
-- **scipy**: Solving differential equations
-- **matplotlib**: Visualization & animation
-- **tensorflow & keras**: Machine learning model
+- angle evolution
+- phase portrait
+- energy consistency
+- start/end geometric configuration
+- pendulum animation
+
+## Configuration
+
+Main experiment settings live in `run_chaos_study.py` (`ExperimentConfig`):
+
+- `num_samples`
+- `batch_size`
+- `dt`
+- `horizon`
+- `epsilon`
+- `renorm_interval`
+- `phase_grid`
+
+For larger studies (50k+ samples), increase `num_samples` and tune `batch_size` to your GPU/CPU memory limits.
+
+## Notes
+
+- If `scikit-learn` is unavailable, RF/GB are skipped and MLP still runs.
+- Device selection is automatic (`cuda` -> `mps` -> `cpu`).
+- Lyapunov estimation uses angle-wrapped distance and renormalization for better numerical stability.
